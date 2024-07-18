@@ -15,10 +15,10 @@ object WallService {
 
 
     fun add(post: Post): Post {
-
-        val postIdent = post.copy(countWall + 1)
         countWall++
-        posts += postIdent
+
+
+        posts += post.copy(id = countWall)
 
         return posts.last()
     }
@@ -35,7 +35,7 @@ object WallService {
 
     fun clear() {
         posts = emptyArray()
-        countWall
+        countWall = 0
     }
 
     class Likes(var likeCount: Int = 0) {
@@ -56,6 +56,10 @@ object WallService {
                 return postLike.likes.likeCount
             }
         }
+
+        override fun toString(): String {
+            return likeCount.toString()
+        }
     }
 
     class View(var viewCount: Int = 0) {
@@ -65,6 +69,10 @@ object WallService {
                 post.view.viewCount++
                 return post.view.viewCount
             }
+        }
+
+        override fun toString(): String {
+            return viewCount.toString()
         }
     }
 }

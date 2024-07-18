@@ -4,33 +4,28 @@ import org.junit.Assert.*
 import org.junit.Before
 
 class WallServiceTest {
-    private var posts = emptyArray<Post>()
-    private var countWall: Int = 0
-    val post = Post()
-    val updPost = Post()
-    @Test
-    fun clear() {
-        var posts = emptyArray<Post>()
-        var countWall: Int = 0
-        val result = 0
-        assertEquals(0,0)
 
-    }
+    val post = Post()
+    val post1 = Post(1)
+
+
+
     @Test
     fun add() {
-        val result = post.id
-        assertEquals(1, result)
+        val result = WallService.add(post)
+        assertEquals(1, result.id)
 
     }
 
+    @Before
+    fun clear() {
+        WallService.clear()
+    }
     @Test
     fun update() {
-        updPost
-        post
-
-        posts
-        val result = update()
-        assertEquals(true, result)
+         WallService.add(post)
+        val result = WallService.update(post1)
+       assertEquals(true, result)
 
     }
 

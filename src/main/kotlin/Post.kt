@@ -14,6 +14,10 @@ object WallService {
     private var countWall: Int = 0
 
 
+    fun clear() {
+        posts = emptyArray()
+        countWall = 0
+    }
     fun add(post: Post): Post {
         countWall++
 
@@ -26,17 +30,14 @@ object WallService {
     fun update(updPost: Post): Boolean {
         for ((index, post) in posts.withIndex()) {
             if (post.id == updPost.id) {
-                posts[index] = updPost
+                posts[index] = post.copy()
                 return true
             }
         }
         return false
     }
 
-    fun clear() {
-        posts = emptyArray()
-        countWall = 0
-    }
+
 
     class Likes(var likeCount: Int = 0) {
         companion object {

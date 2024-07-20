@@ -5,8 +5,8 @@ import org.junit.Before
 
 class WallServiceTest {
 
-    val post = Post()
-    val post1 = Post(1)
+    val post = Post(0, text = "Hello, Kotlin")
+    val post1 = Post(1, text = "Hello, Kotlin")
 
 
 
@@ -33,7 +33,7 @@ class WallServiceTest {
     fun updateFalse(){
         WallService.add(post)
         val result = WallService.update(post)
-        assertEquals(true, result)
+        assertEquals(false, result)
     }
 
 

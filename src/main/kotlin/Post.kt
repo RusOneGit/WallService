@@ -5,7 +5,7 @@ data class Post(
     var fromId: Int = 0,
     var view: WallService.View = WallService.View(),
     var likes: WallService.Likes = WallService.Likes(),
-    var attachments: Array<Attachment>
+    var attachments: Array<Attachment> = emptyArray<Attachment>()
 
 )
 

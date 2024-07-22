@@ -1,16 +1,13 @@
 data class Post(
-    var id: Int ? = null ,
+    var id: Int? = null,
     var ownerId: Int = 0,
-    var text: String ? = null,
+    var text: String? = null,
     var fromId: Int = 0,
     var view: WallService.View = WallService.View(),
     var likes: WallService.Likes = WallService.Likes(),
+    var attachments: Array<Attachment>
 
-    ) {
-    var attachments: Array<Attachment> = emptyArray<Attachment>()
-}
-
-
+)
 
 object WallService {
 
@@ -22,6 +19,7 @@ object WallService {
         posts = emptyArray()
         countWall = 0
     }
+
     fun add(post: Post): Post {
         countWall++
         posts += post.copy(id = countWall)
@@ -38,7 +36,6 @@ object WallService {
         }
         return false
     }
-
 
 
     class Likes(var likeCount: Int = 0) {

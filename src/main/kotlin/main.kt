@@ -8,15 +8,4 @@ fun main() {
     // println(WallService.update(post1))
 
 
-    val video: Attachment = AttachmentVideo(Video)
-    val audio: Attachment = AttachmentAudio(Audio)
-    val photo: Attachment = AttachmentPhoto(Photo)
-    val note: Attachment = AttachmentNote(Note)
-    val document: Attachment = AttachmentDocument(Document)
-    attachments += video
-    attachments += audio
-    attachments += photo
-    attachments += note
-    attachments += document
-
 }

@@ -6,9 +6,10 @@ data class Post(
     var view: WallService.View = WallService.View(),
     var likes: WallService.Likes = WallService.Likes(),
 
-    )
+    ) {
+    var attachments: Array<Attachment> = emptyArray<Attachment>()
+}
 
-    var attachments = emptyArray<Attachment>()
 
 
 object WallService {

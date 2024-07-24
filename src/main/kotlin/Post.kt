@@ -15,11 +15,12 @@ object WallService {
     private var countWall: Int = 0
     private var comments = emptyArray<Comment>()
 
-    fun createComment(postId: Int, comment: String): Comment{
+    fun createComment(postId: Int, comment: String): Comment {
         for ((index, post) in posts.withIndex()) {
-            var postComment: Comment = if (post.postId != postId) throw PostNotFoundException("Пост с данным ID не найден!") else
-           Comment(postId, comment)
-            comments+=postComment
+            var postComment: Comment =
+                if (posts.size == 0 || post.postId != postId) throw PostNotFoundException("Пост с данным ID не найден!") else
+                    Comment(postId, comment)
+            comments += postComment
         }
         return comments.last()
     }
@@ -86,7 +87,14 @@ object WallService {
         }
     }
 
-    class Comment(postId: Int, comment: String)
+    class Comment(var postId: Int = 0,var comment: String = "") {
+        override fun toString(): String {
+            return "К посту с ID:" + postId  + " оставлен комментарий: " + comment
+        }
+
+
+    }
+
     class PostNotFoundException(message: String) : RuntimeException(message)
 
 }

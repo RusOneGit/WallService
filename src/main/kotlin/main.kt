@@ -4,7 +4,7 @@ fun main() {
     //  val post3 = Post()
 
     //  println(WallService.add(post3))
-    // WallService.add(post3)
+    WallService.add(post)
     // println(WallService.update(post1))
     println( WallService.createComment(1, "Hello"))
 

@@ -1,5 +1,5 @@
 data class Post(
-    var id: Int? = null,
+    var postId: Int? = null,
     var ownerId: Int = 0,
     var text: String? = null,
     var fromId: Int = 0,
@@ -13,6 +13,16 @@ object WallService {
 
     private var posts = emptyArray<Post>()
     private var countWall: Int = 0
+    private var comments = emptyArray<Comment>()
+
+    fun createComment(postId: Int, comment: String): Comment{
+        for ((index, post) in posts.withIndex()) {
+            var postComment: Comment = if (post.postId != postId) throw PostNotFoundException("Пост с данным ID не найден!") else
+           Comment(postId, comment)
+            comments+=postComment
+        }
+        return comments.last()
+    }
 
 
     fun clear() {
@@ -22,14 +32,14 @@ object WallService {
 
     fun add(post: Post): Post {
         countWall++
-        posts += post.copy(id = countWall)
+        posts += post.copy(postId = countWall)
 
         return posts.last()
     }
 
     fun update(updPost: Post): Boolean {
         for ((index, post) in posts.withIndex()) {
-            if (post.id == updPost.id) {
+            if (post.postId == updPost.postId) {
                 posts[index] = post.copy()
                 return true
             }
@@ -75,6 +85,9 @@ object WallService {
             return viewCount.toString()
         }
     }
+
+    class Comment(postId: Int, comment: String)
+    class PostNotFoundException(message: String) : RuntimeException(message)
 
 }
 

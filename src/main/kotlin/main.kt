@@ -6,6 +6,6 @@ fun main() {
     //  println(WallService.add(post3))
     // WallService.add(post3)
     // println(WallService.update(post1))
-
+    println( WallService.createComment(1, "Hello"))
 
 }

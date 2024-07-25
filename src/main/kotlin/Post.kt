@@ -50,49 +50,37 @@ object WallService {
     }
 
 
-    class Likes(var likeCount: Int = 0) {
+   data class Likes(var likeCount: Int = 0) {
         companion object {
-            fun like(postLike: Post): Int {
+            fun like(postLike: Post): Post {
                 for ((index, post) in posts.withIndex()) {
                     if (postLike == post && post.likes.likeCount <= 0) {
                         post.likes.likeCount++
                         posts[index] = post.copy()
-                        return posts[index].likes.likeCount
+                       return posts[index]
                     } else if (postLike == post) {
                         post.likes.likeCount--
                         posts[index] = post.copy()
-                        return posts[index].likes.likeCount
+                       return posts[index]
                     }
 
                 }
-                return postLike.likes.likeCount
+                return postLike
             }
-        }
-
-        override fun toString(): String {
-            return likeCount.toString()
         }
     }
 
-    class View(var viewCount: Int = 0) {
+   data class View(var viewCount: Int = 0) {
 
         companion object {
-            fun view(post: Post): Int {
+            fun view(post: Post): Post {
                 post.view.viewCount++
-                return post.view.viewCount
+                return post
             }
-        }
-
-        override fun toString(): String {
-            return viewCount.toString()
         }
     }
 
-    class Comment(var postId: Int = 0, var comment: String = "") {
-        override fun toString(): String {
-            return "К посту с ID:" + postId + " оставлен комментарий: " + comment
-        }
-
+   data class Comment(var postId: Int = 0, var comment: String = "") {
 
     }
 

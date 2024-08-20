@@ -38,12 +38,10 @@ class AttachmentNote(val note: Note) : Attachment("note")
 data class Comments(
     val comNotId: Int = 0,
     var message: String = "",
-    var access: String = "public"
+    var access: Boolean = true
 
 ) {
-    override fun toString(): String {
-        if (access == "public") return message else return "-"
-    }
+    override fun toString(): String = if (access) message else "-"
 }
 
 data class Note(
@@ -89,7 +87,7 @@ data class Note(
             for ((y, note) in Notes.withIndex()) {
                 for ((i: Int, comments: Comments) in note.comment.withIndex())
                     if (note.id == notesId && comments.comNotId == comId) {
-                        Notes[y].comment[i].access = "delete"
+                        Notes[y].comment[i].access = false
                         note.commentCount--
                         return true
                     }
@@ -102,7 +100,7 @@ data class Note(
         fun edit(notesId: Int, title: String, content: String): Boolean {
             for ((index, note) in Notes.withIndex()) {
                 if (note.id == notesId) {
-                    Notes[index] = note.copy(notesId, title, content)
+                    Notes[index] = note.copy(id = notesId, title = title, content = content)
                     return true
                 }
             }
@@ -112,9 +110,8 @@ data class Note(
         fun editComment(notesId: Int, comId: Int, message: String): Boolean {
             for ((y, note) in Notes.withIndex()) {
                 for ((i: Int, comments: Comments) in note.comment.withIndex())
-                    if (note.id == notesId && comments.comNotId == comId) {
+                    if (note.id == notesId && comments.comNotId == comId && Notes[y].comment[i].access) {
                         Notes[y].comment[i].message = message
-
                         return true
                     }
 
@@ -126,7 +123,7 @@ data class Note(
             for ((y, note) in Notes.withIndex()) {
                 for ((i: Int, comments: Comments) in note.comment.withIndex())
                     if (note.id == notesId && comments.comNotId == comId) {
-                        Notes[y].comment[i].access = "public"
+                        Notes[y].comment[i].access = true
                         note.commentCount++
                         return true
                     }
@@ -169,8 +166,8 @@ data class Note(
                     }
 
             }
-            if (noteList.size>0) return noteList else
-                throw NoteNotFoundException("Заметкис данными ID не найдены!")
+            if (noteList.size > 0) return noteList else
+                throw NoteNotFoundException("Заметки с данными ID не найдены!")
         }
 
     }

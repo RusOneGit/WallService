@@ -28,8 +28,8 @@ object ChatService {
       chats.remove(userID)
     }
 
-    fun getChats(){
-        println(chats)
+    fun getChats(): MutableMap<Int, Chat> {
+        return chats
     }
 }
 

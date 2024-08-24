@@ -1,7 +1,7 @@
 abstract class Attachment(val type: String)
 
 var noteId = 0
-val Notes: MutableList<Note> = mutableListOf()
+var Notes: MutableList<Note> = mutableListOf()
 
 class AttachmentVideo(val video: Video) : Attachment("video")
 
@@ -34,7 +34,6 @@ data class Document(
 
 )
 
-class AttachmentNote(val note: Note) : Attachment("note")
 data class Comments(
     val comNotId: Int = 0,
     var message: String = "",
@@ -44,6 +43,9 @@ data class Comments(
     override fun toString(): String = if (access) message else "-"
 }
 
+class AttachmentNote(val note: Note) : Attachment("note")
+
+
 data class Note(
     var id: Int = 0,
     val title: String = "название заметки",
@@ -51,7 +53,11 @@ data class Note(
     val comment: MutableList<Comments> = mutableListOf(),
     var commentCount: Int = 0
 ) {
+
     companion object {
+
+
+
         fun add(title: String, content: String): Note {
             noteId++
             val note = Note(id = noteId, title, content)
@@ -169,7 +175,6 @@ data class Note(
             if (noteList.size > 0) return noteList else
                 throw NoteNotFoundException("Заметки с данными ID не найдены!")
         }
-
     }
 
     class NoteNotFoundException(message: String) : RuntimeException(message)

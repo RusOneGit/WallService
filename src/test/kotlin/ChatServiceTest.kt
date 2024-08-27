@@ -39,7 +39,7 @@ class ChatServiceTest {
         ChatService.sendMessage(1,Message("Hello"))
         val  result = ChatService.getMessages(1,2)
         assertEquals(2, result.size)
-    }
+    } kj
 
     @Test
     fun deleteMessage() {

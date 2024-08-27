@@ -56,7 +56,10 @@ data class Note(
 
     companion object {
 
-
+        fun clear() {
+            noteId = 0
+            Notes = mutableListOf()
+        }
 
         fun add(title: String, content: String): Note {
             noteId++

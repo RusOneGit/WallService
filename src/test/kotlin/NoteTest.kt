@@ -1,10 +1,15 @@
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.Before
 
 
 class NoteTest {
 
+    @Before
+    fun clear(){
+        Note.clear()
+    }
 
     @Test
     fun add() {

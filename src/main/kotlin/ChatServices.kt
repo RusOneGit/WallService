@@ -1,21 +1,30 @@
 data class Chat(val messages: MutableList<Message> = mutableListOf())
 
 data class Message(val text: String, var statusMessage: Boolean = false)
+
 object ChatService {
     private var chats = mutableMapOf<Int, Chat>(100 to Chat())
 
-
-    fun clear(){
-        chats = mutableMapOf<Int, Chat>()
+    fun clear() {
+        chats = mutableMapOf()
     }
+
     fun sendMessage(userID: Int, message: Message): Boolean {
         chats.getOrPut(userID) { Chat() }.messages += message
         return true
     }
 
-    fun unreadChatsCount() = chats.values.count { it.messages.any { !it.statusMessage } }
+    fun unreadChatsCount(): Int {
+        return chats.asSequence()
+            .map { it.value.messages.asSequence().any { !it.statusMessage } }
+            .count { it }
+    }
 
-    fun lastMessages() = chats.values.map { it.messages.lastOrNull()?.text ?: "Нет сообщений!" }
+    fun lastMessages(): List<String> {
+        return chats.asSequence()
+            .map { it.value.messages.asSequence().lastOrNull()?.text ?: "Нет сообщений!" }
+            .toList()
+    }
 
     fun getMessages(userID: Int, count: Int): List<Message> {
         val chat = chats[userID] ?: throw NoSuchChatException()
@@ -29,9 +38,7 @@ object ChatService {
     }
 
     fun deleteChat(userID: Int): Boolean {
-        val chat = chats[userID] ?: throw NoSuchChatException()
-        chats.remove(userID)
-        return true
+        return chats.remove(userID) != null
     }
 
     fun getChats(): MutableMap<Int, Chat> {
@@ -39,8 +46,4 @@ object ChatService {
     }
 }
 
-
-class NoSuchChatException : Throwable() {
-
-}
-
+class NoSuchChatException : Throwable()

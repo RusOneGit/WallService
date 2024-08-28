@@ -28,9 +28,8 @@ object ChatService {
 
     fun getMessages(userID: Int, count: Int): List<Message> {
         val chat = chats[userID] ?: throw NoSuchChatException()
-        return chat.messages.takeLast(count).onEach { it.statusMessage = true }
+        return chat.messages.asReversed().asSequence().take(count).onEach { it.statusMessage = true }.toList()
     }
-
     fun deleteMessage(userID: Int, numberMessage: Int): Boolean {
         val chat = chats[userID] ?: throw NoSuchChatException()
         chats.getOrPut(userID) { Chat() }.messages.removeAt(numberMessage - 1)

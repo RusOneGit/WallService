@@ -1,8 +1,8 @@
 fun main() {
 
 
-
-   println(Note.add("4","5"))
-   println(Note.createComment(2,"Hi"))
+    println(ChatService.sendMessage(1, Message("Hello", statusMessage = false)))
+    println(ChatService.unreadChatsCount())
+    println(ChatService.deleteMessage(1,2))
 
 }
